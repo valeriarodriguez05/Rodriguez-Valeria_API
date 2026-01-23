@@ -46,10 +46,6 @@ namespace Rodriguez_Valeria_API
                 Root root = JsonConvert.DeserializeObject<Root>(content);
 
                 CurrentCondition currentCondition = root.current_condition;
-
-                var Temp = currentCondition.tmp.ToString();
-                var Humidity = currentCondition.humidity.ToString();
-
                 //jour1
                 FcstDay0 fcstDay0 = root.fcst_day_0;
                 //Jour2
@@ -57,25 +53,31 @@ namespace Rodriguez_Valeria_API
                 FcstDay2 fcstDay2 = root.fcst_day_2;
                 FcstDay3 fcstDay3 = root.fcst_day_3;
                 FcstDay4 fcstDay4 = root.fcst_day_4;
-
-
-
-
+                var Temp = currentCondition.tmp.ToString();
+                var Humidity = currentCondition.humidity.ToString();
+                var Temp_Tomorrow = root.fcst_day_1.tmax.ToString();
+                var Temp_Day3 = root.fcst_day_2.tmax.ToString();
+                var Temp_Day4 = root.fcst_day_3.tmax.ToString();
+                var Temp_Day5 = root.fcst_day_4.tmax.ToString();
 
                 var CityInfo = root.city_info;
+                var temp_Min = root.fcst_day_0.tmin;
+                var temp_Max = root.fcst_day_0.tmax;
+                TB_Temp.Text = $"{Temp} °C";
+                TB_Today.Text = $"{Temp} °C";
+                TB_Tomorrow.Text = $"{Temp_Tomorrow} °C";
+                TB_Temp_Day3.Text = $"{Temp_Day3} °C";
+                TB_Temp_Day4.Text = $"{Temp_Day4} °C";
+                TB_Temp_Day5.Text = $"{Temp_Day5} °C";
 
-             
-         
-                    var temp_Min = root.fcst_day_0.tmin;
-                    var temp_Max = root.fcst_day_0.tmax;
-                    //var city = CityInfo.name;
-                    TB_Temp.Text = $"Température: {Temp} °C";
-                    //TB_Humidity.Text = $"Humidité: {Humidity} %";
+
+
+                //TB_Humidity.Text = $"Humidité: {Humidity} %";
                 //TB_FeelsLike.Text = $"Ressenti: {feels_like} °C";
                 //TB_Clouds.Text = $"Couverture nuageuse: {clouds} %";
                 //TB_Low.Text = $"Temp minimale: {temp_Min} °C";
                 //    TB_High.Text = $"Temp maximale: {temp_Max} °C";
-                    TB_Ville.Text = Ville;
+                TB_Ville.Text = Ville;
                
 
              //   Root root = JsonConvert.DeserializeObject<Root>(content);

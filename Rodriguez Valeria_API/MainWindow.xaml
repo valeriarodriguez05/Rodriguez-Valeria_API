@@ -51,14 +51,12 @@
                     Margin="10"
                     Click="Btn_Today_Click">
                 <StackPanel>
-                    <TextBlock Text="Today"
+                    <TextBlock Text="Today" 
                                FontSize="20"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C"
-                               FontSize="26"
-                               FontWeight="Bold"
-                               HorizontalAlignment="Center"/>
+                    <TextBlock 
+                               Text="-- °C" x:Name="TB_Today" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
@@ -72,7 +70,7 @@
                                FontSize="20"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C"
+                    <TextBlock Text="-- °C" x:Name="TB_Tomorrow"
                                FontSize="26"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
@@ -85,11 +83,11 @@
                     Margin="10"
                     Click="Btn_Day3_Click">
                 <StackPanel>
-                    <TextBlock Text="Day 3"
+                    <TextBlock Text="Day 3" x:Name="TB_Day3"
                                FontSize="20"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C"
+                    <TextBlock Text="-- °C" x:Name="TB_Temp_Day3"
                                FontSize="26"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
@@ -102,11 +100,11 @@
                     Margin="10"
                     Click="Btn_Day4_Click">
                 <StackPanel>
-                    <TextBlock Text="Day 4"
+                    <TextBlock Text="Day 4" x:Name="TB_Day4"
                                FontSize="20"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C"
+                    <TextBlock Text="-- °C" x:Name="TB_Temp_Day4"
                                FontSize="26"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
@@ -119,11 +117,11 @@
                     Margin="10"
                     Click="Btn_Day5_Click">
                 <StackPanel>
-                    <TextBlock Text="Day 5"
+                    <TextBlock Text="Day 5" x:Name="TB_Day5"
                                FontSize="20"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C"
+                    <TextBlock Text="-- °C" x:Name="TB_Temp_Day5"
                                FontSize="26"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
