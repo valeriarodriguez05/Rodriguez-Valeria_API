@@ -11,7 +11,6 @@ namespace Rodriguez_Valeria_API.Models
     {
 
     }
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class _0H00
     {
         public string ICON { get; set; }
