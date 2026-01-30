@@ -3,86 +3,322 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Rodriguez_Valeria_API.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="#152951">
-    <Grid>
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="700"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <!-- Style pour les titres de section -->
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#9CA3AF"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <!-- Style pour les valeurs principales -->
+        <Style x:Key="MainValue" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- Style pour les valeurs secondaires -->
+        <Style x:Key="SecondaryValue" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#D1D5DB"/>
+        </Style>
+
+        <!-- Style pour les boutons -->
+        <Style x:Key="SearchButton" TargetType="Button">
+            <Setter Property="Background" Value="#2D5A8F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Padding="20,12">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3A6FA8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style pour les cartes météo -->
+        <Style x:Key="WeatherCard" TargetType="Border">
+            <Setter Property="Background" Value="#1A2332"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="15"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Recherche -->
-            <RowDefinition Height="*"/>
-            <!-- Température -->
             <RowDefinition Height="Auto"/>
-            <!-- Boutons -->
+            <!-- Température principale -->
+            <RowDefinition Height="*"/>
+            <!-- Détails -->
+            <RowDefinition Height="Auto"/>
+            <!-- Prévisions -->
         </Grid.RowDefinitions>
 
-        <!-- Recherche ville -->
-        <StackPanel Orientation="Horizontal"
-         HorizontalAlignment="Center"
-         Margin="0,0,0,15">
-            <TextBox x:Name="TB_Ville"
-          Width="220"
-          Height="45"
-          FontSize="20"
-          Text="Annecy"
-          Margin="0,0,15,0"/>
-            <Button Content="Rechercher"
-         Width="140"
-         Height="45"
-         FontSize="18"/>
-        </StackPanel>
+        <!-- 🔍 BARRE DE RECHERCHE -->
+        <Border Grid.Row="0"
+                Style="{StaticResource WeatherCard}"
+                Margin="0,0,0,25">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-        <!-- Température principale -->
-        <TextBlock x:Name="TB_Temp"
-        Grid.Row="1"
-        Text="-- °C"
-        FontSize="72"
-        FontWeight="Bold"
-        Foreground="White"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"/>
+                <TextBox x:Name="TB_Ville"
+                         Grid.Column="0"
+                         Text="Annecy"
+                         FontSize="16"
+                         Height="45"
+                         Background="#0F1419"
+                         Foreground="White"
+                         BorderBrush="#2D5A8F"
+                         BorderThickness="1"
+                         VerticalContentAlignment="Center"
+                         Padding="15,0"
+                         Margin="0,0,15,0">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
 
-        <!-- Boutons prévisions -->
-        <StackPanel Grid.Row="2"
-         Orientation="Horizontal"
-         HorizontalAlignment="Center"
-         Margin="0,25,0,0">
+                <Button Grid.Column="1"
+                        Content="🔍 Rechercher"
+                        Style="{StaticResource SearchButton}"
+                        Width="150"
+                        Height="45"
+                        Click="Button_Click"/>
+            </Grid>
+        </Border>
 
-            <Button Width="150" Height="120" Margin="10" Click="Btn_Today_Click">
-                <StackPanel>
-                    <TextBlock Text="Today" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C" x:Name="TB_Today" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+        <!-- 🌡 TEMPÉRATURE PRINCIPALE -->
+        <Border Grid.Row="1"
+                Style="{StaticResource WeatherCard}"
+                Margin="0,0,0,25"
+                Padding="30">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="☀️"
+                           FontSize="60"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
 
-            <Button Width="150" Height="120" Margin="10" Click="Btn_Tomorrow_Click">
-                <StackPanel>
-                    <TextBlock Text="Tomorrow" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C" x:Name="TB_Tomorrow" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+                <TextBlock x:Name="TB_Temp"
+                           Text="-- °C"
+                           FontSize="72"
+                           FontWeight="Light"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
 
-            <Button Width="150" Height="120" Margin="10" Click="Btn_Day3_Click">
-                <StackPanel>
-                    <TextBlock Text="Day 3" x:Name="TB_Day3" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C" x:Name="TB_Temp_Day3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+                <TextBlock Text="Ressenti"
+                           Style="{StaticResource SectionTitle}"
+                           HorizontalAlignment="Center"
+                           Margin="0,15,0,5"/>
 
-            <Button Width="150" Height="120" Margin="10" Click="Btn_Day4_Click">
-                <StackPanel>
-                    <TextBlock Text="Day 4" x:Name="TB_Day4" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C" x:Name="TB_Temp_Day4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+                <TextBlock x:Name="TB_FeelsLike"
+                           Text="-- °C"
+                           FontSize="24"
+                           Foreground="#9CA3AF"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
 
-            <Button Width="150" Height="120" Margin="10" Click="Btn_Day5_Click">
-                <StackPanel>
-                    <TextBlock Text="Day 5" x:Name="TB_Day5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="-- °C" x:Name="TB_Temp_Day5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+        <!-- 📊 DÉTAILS MÉTÉO -->
+        <Grid Grid.Row="2"
+              Margin="0,0,0,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        </StackPanel>
+            <!-- Colonne gauche -->
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <!-- Humidité -->
+                <Border Style="{StaticResource WeatherCard}" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="💧 Humidité" Style="{StaticResource SectionTitle}"/>
+                        <TextBlock x:Name="TB_Humidity" Text="-- %" Style="{StaticResource MainValue}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Précipitations -->
+                <Border Style="{StaticResource WeatherCard}">
+                    <StackPanel>
+                        <TextBlock Text="🌧️ Précipitations" Style="{StaticResource SectionTitle}"/>
+                        <TextBlock x:Name="TB_Precipitation" Text="-- mm" Style="{StaticResource MainValue}"/>
+                        <TextBlock x:Name="TB_PrecipitationType" 
+                                   Text="Pluie / Neige" 
+                                   Style="{StaticResource SecondaryValue}"
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Colonne droite -->
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <!-- Vent -->
+                <Border Style="{StaticResource WeatherCard}">
+                    <StackPanel>
+                        <TextBlock Text="💨 Vent" Style="{StaticResource SectionTitle}"/>
+                        <TextBlock x:Name="TB_Wind" Text="-- km/h" Style="{StaticResource MainValue}"/>
+                        <TextBlock x:Name="TB_WindGust" 
+                                   Text="Rafales : -- km/h" 
+                                   Style="{StaticResource SecondaryValue}"
+                                   Margin="0,5,0,0"/>
+                        <TextBlock x:Name="TB_WindDirection" 
+                                   Text="Direction : --" 
+                                   Style="{StaticResource SecondaryValue}"
+                                   Margin="0,3,0,0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <!-- 📅 PRÉVISIONS 5 JOURS -->
+        <Border Grid.Row="3"
+                Style="{StaticResource WeatherCard}">
+            <StackPanel>
+                <TextBlock Text="Prévisions sur 5 jours"
+                           Style="{StaticResource SectionTitle}"
+                           FontSize="14"
+                           Margin="0,0,0,15"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Aujourd'hui -->
+                    <Border Grid.Column="0"
+                            Background="#0F1419"
+                            CornerRadius="10"
+                            Padding="12"
+                            Margin="0,0,5,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Auj."
+                                       Style="{StaticResource SectionTitle}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TB_Today"
+                                       Text="-- °C"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Demain -->
+                    <Border Grid.Column="1"
+                            Background="#0F1419"
+                            CornerRadius="10"
+                            Padding="12"
+                            Margin="5,0,5,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Demain"
+                                       Style="{StaticResource SectionTitle}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TB_Tomorrow"
+                                       Text="-- °C"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Jour 3 -->
+                    <Border Grid.Column="2"
+                            Background="#0F1419"
+                            CornerRadius="10"
+                            Padding="12"
+                            Margin="5,0,5,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="TB_Day3"
+                                       Text="J+2"
+                                       Style="{StaticResource SectionTitle}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TB_Temp_Day3"
+                                       Text="-- °C"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Jour 4 -->
+                    <Border Grid.Column="3"
+                            Background="#0F1419"
+                            CornerRadius="10"
+                            Padding="12"
+                            Margin="5,0,5,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="TB_Day4"
+                                       Text="J+3"
+                                       Style="{StaticResource SectionTitle}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TB_Temp_Day4"
+                                       Text="-- °C"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Jour 5 -->
+                    <Border Grid.Column="4"
+                            Background="#0F1419"
+                            CornerRadius="10"
+                            Padding="12"
+                            Margin="5,0,0,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="TB_Day5"
+                                       Text="J+4"
+                                       Style="{StaticResource SectionTitle}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TB_Temp_Day5"
+                                       Text="-- °C"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
