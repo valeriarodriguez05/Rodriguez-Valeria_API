@@ -144,11 +144,14 @@
 
                         <Grid Margin="0,0,0,12">
                             <TextBox x:Name="TB_City"
-                     Style="{StaticResource ModernTextBox}"
-                     Height="40"
-                     Foreground="Black"
-                     Background="White"
-                     TextChanged="TB_Ville_TextChanged"/>
+         Height="40"
+         FontSize="14"
+         Foreground="Black"
+         Background="White"
+         VerticalContentAlignment="Center"
+         Padding="10,0,10,0"
+         TextChanged="TB_Ville_TextChanged"/>
+
                             <TextBlock x:Name="TB_Placeholder"
                        Text="Paris, Lyon, Annecy..."
                        Foreground="#9CA3AF"
@@ -179,7 +182,7 @@
                         <ComboBox x:Name="CB_Villes"
                   Style="{StaticResource ModernComboBox}"
                   Height="40"
-                  Foreground="White"
+                  Foreground="Black"
                   SelectionChanged="CB_Villes_SelectionChanged"/>
                     </StackPanel>
                 </Border>
